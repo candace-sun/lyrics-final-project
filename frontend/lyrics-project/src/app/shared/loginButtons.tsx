@@ -1,6 +1,7 @@
 "use client";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
+import Link from "next/link";
 
 export default function LoginButtons() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -53,7 +54,11 @@ export default function LoginButtons() {
     <span className="m-3 text-right">
       {loggedIn ? (
         <>
-          Welcome {username}!{"\t"}
+          Welcome{" "}
+          <Link href="/profile" className="font-bold">
+            {username}
+          </Link>
+          !{"\t"}
           <button
             className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-3 rounded focus:outline-none focus:shadow-outline ml-2"
             onClick={logout}

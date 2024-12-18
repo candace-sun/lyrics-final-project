@@ -24,14 +24,33 @@ def logout(username):
     
     return "" + str(user.is_authenticated)
 
-@users.route("/is_logged_in/<username>", methods=["GET", "POST"])
+@users.route("/is_logged_in/<username>", methods=["GET"])
 def is_logged_in(username):
     user = User.objects(username=username).first()
     if user:
         return "" + str(user.is_authenticated)
     else: 
         return "False"
-
+    
+@users.route("/get_email/<username>", methods=["GET"])
+def get_email(username):
+    user = User.objects(username=username).first()
+    if user:
+        return "" + str(user.email)
+    else: 
+        return "False"
+    
+@users.route("/update_email", methods=["POST"])
+def update_email():
+        content = request.json
+        user = User.objects(username=content['username']).first()
+        email = content['email']
+        if user:
+            user.email = email
+            user.save()
+            return "True"
+        
+        return "False"
 
 @users.route("/login", methods=["GET", "POST"])
 def login():

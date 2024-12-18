@@ -228,7 +228,7 @@ export default function Page() {
               ></div>
 
               <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
-                <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+                <div className="flex min-h-full items-center justify-center p-4 text-center sm:items-center sm:p-0">
                   <div className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg p-6">
                     <h1 className="text-2xl font-bold mb-4">
                       Manually add a snippet
