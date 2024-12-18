@@ -5,6 +5,8 @@ import csv
 import json
 import re
 
+from urllib.request import Request
+
 # artist for which the lyrics need to be written
 artist = "aespa"
 song = "whiplash"
@@ -22,14 +24,17 @@ def get_lyrics(artist, song):
     artist = artist.replace(" ", "").lower()
     final_url = base_url.format(artist,processed_song)
     
+    req = Request(final_url)
+    req.add_header('User-Agent', 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0')
     print(final_url)
 
     try:
-        html_page = urlopen(final_url)
+        html_page = urlopen(req).read()
         print(html_page)
         soup = BeautifulSoup(html_page, 'html.parser')
-
+        print(soup)
         html_pointer = soup.find('div', attrs={'class':'ringtone'})
+        print(html_pointer)
         song_name = html_pointer.find_next('b').contents[0].strip()
         lyrics = html_pointer.find_next('div').text.strip()
         
