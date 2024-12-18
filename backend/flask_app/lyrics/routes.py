@@ -10,7 +10,9 @@ lastfm_key = config.LASTFM_KEY
 @lyrics.route("/lyrics/<artist>/<song>", methods=["GET"])
 def get_lyrics(artist, song):
     
-    return lyrics_scraper.get_lyrics(artist, song)
+    x = lyrics_scraper.get_lyrics(artist, song)
+    print(x)
+    return x
 
 
 @lyrics.route("/lyrics/search/<query>", methods=["GET"])
