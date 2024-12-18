@@ -21,9 +21,12 @@ def get_lyrics(artist, song):
     processed_song = ''.join(e for e in processed_song if e.isalnum())
     artist = artist.replace(" ", "").lower()
     final_url = base_url.format(artist,processed_song)
+    
+    print(final_url)
 
     try:
         html_page = urlopen(final_url)
+        print(html_page)
         soup = BeautifulSoup(html_page, 'html.parser')
 
         html_pointer = soup.find('div', attrs={'class':'ringtone'})
@@ -33,6 +36,7 @@ def get_lyrics(artist, song):
         return lyrics
         
     except Exception as e:
+        print(e)
         return False
         
     # finally:
