@@ -9,7 +9,7 @@ import Lyrics from "@/app/lyrics/lyrics";
 // import Test from "@/app/lyrics/test";
 import { useState, useEffect } from "react";
 
-export default function LyricsPage() {
+function LyricsPage() {
   const [data, setData] = useState(""); //[] as string[]); // based on your data you should store it here in state
   // const [romanized, setRomanized] = useState("");
   // const [translated, setTranslated] = useState("");
@@ -17,9 +17,9 @@ export default function LyricsPage() {
   const [artist, setArtist] = useState("");
   const [song, setSong] = useState("");
   const [loggedIn, setLoggedIn] = useState(false);
-
   const searchParams = useSearchParams();
-  const params = new URLSearchParams(searchParams);
+  const [params] = useState(new URLSearchParams(searchParams));
+
   let username = "";
   if (typeof window !== "undefined") {
     username = localStorage.getItem("username") || "";
@@ -194,7 +194,7 @@ export default function LyricsPage() {
   );
 }
 
-export function Page() {
+export default function Page() {
   return (
     // You could have a loading skeleton as the `fallback` too
     <Suspense>
