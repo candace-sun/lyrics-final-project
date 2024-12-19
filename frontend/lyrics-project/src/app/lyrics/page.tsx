@@ -9,19 +9,17 @@ import Lyrics from "@/app/lyrics/lyrics";
 // import Test from "@/app/lyrics/test";
 import { useState, useEffect } from "react";
 
-export default function Page() {
+export default function LyricsPage() {
   const [data, setData] = useState(""); //[] as string[]); // based on your data you should store it here in state
   // const [romanized, setRomanized] = useState("");
   // const [translated, setTranslated] = useState("");
-
-  const searchParams = useSearchParams();
-
   const [snip, setSnip] = useState("");
   const [artist, setArtist] = useState("");
   const [song, setSong] = useState("");
   const [loggedIn, setLoggedIn] = useState(false);
-  const [params] = useState(new URLSearchParams(searchParams));
 
+  const searchParams = useSearchParams();
+  const params = new URLSearchParams(searchParams);
   let username = "";
   if (typeof window !== "undefined") {
     username = localStorage.getItem("username") || "";
@@ -148,52 +146,59 @@ export default function Page() {
   }
 
   return (
-    <Suspense>
-      <div className="m-4">
-        <div className="flex items-center justify-between">
-          <button
-            onClick={() => history.back()}
-            className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-1 px-2 border border-gray-400 rounded shadow items-center inline-flex "
-          >
-            <ChevronLeftIcon className="w-4 h-4 mr-2" />
-            <span>Go Back</span>
-          </button>
-          <LoginButtons />
-        </div>
-        <div className="ml-4 mt-4 mb-10">
-          <Lyrics />
-          {data.split("\n").map((line, i) => {
-            return line == "" ? (
-              <br key={i} />
-            ) : (
-              <div key={line + i}>
-                <span className="hover:underline	hover:decoration-indigo-100 decoration-2">
-                  {line}
-                </span>
-                <br />
-              </div>
-            );
-          })}
-
-          <div
-            className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative hidden"
-            role="alert"
-            id="err-container"
-          >
-            <span className="block sm:inline" id="err"></span>
-          </div>
-        </div>
-        {/* <pre id="lyrics">{data}</pre> */}
+    <div className="m-4">
+      <div className="flex items-center justify-between">
         <button
-          id="snip-tooltip"
-          className="absolute bg-indigo-500 hover:bg-indigo-700 py-1 px-3 rounded-md text-white hidden items-center shadow group"
-          onClick={saveSnip}
+          onClick={() => history.back()}
+          className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-1 px-2 border border-gray-400 rounded shadow items-center inline-flex "
         >
-          <BookmarkIcon className="w-4 h-4 mr-2 group-hover:hidden" />
-          <BookmarkSolidIcon className="w-4 h-4 mr-2 group-hover:flex hidden" />
-          <span>Save snippet</span>
+          <ChevronLeftIcon className="w-4 h-4 mr-2" />
+          <span>Go Back</span>
         </button>
+        <LoginButtons />
       </div>
+      <div className="ml-4 mt-4 mb-10">
+        <Lyrics />
+        {data.split("\n").map((line, i) => {
+          return line == "" ? (
+            <br key={i} />
+          ) : (
+            <div key={line + i}>
+              <span className="hover:underline	hover:decoration-indigo-100 decoration-2">
+                {line}
+              </span>
+              <br />
+            </div>
+          );
+        })}
+
+        <div
+          className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative hidden"
+          role="alert"
+          id="err-container"
+        >
+          <span className="block sm:inline" id="err"></span>
+        </div>
+      </div>
+      {/* <pre id="lyrics">{data}</pre> */}
+      <button
+        id="snip-tooltip"
+        className="absolute bg-indigo-500 hover:bg-indigo-700 py-1 px-3 rounded-md text-white hidden items-center shadow group"
+        onClick={saveSnip}
+      >
+        <BookmarkIcon className="w-4 h-4 mr-2 group-hover:hidden" />
+        <BookmarkSolidIcon className="w-4 h-4 mr-2 group-hover:flex hidden" />
+        <span>Save snippet</span>
+      </button>
+    </div>
+  );
+}
+
+export function Page() {
+  return (
+    // You could have a loading skeleton as the `fallback` too
+    <Suspense>
+      <LyricsPage />
     </Suspense>
   );
 }
