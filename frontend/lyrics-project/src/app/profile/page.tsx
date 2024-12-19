@@ -2,10 +2,11 @@
 
 import LoginButtons from "../shared/loginButtons";
 import { useState, useEffect } from "react";
-import { FormEvent } from "react";
+import React, { FormEvent } from "react";
 import Link from "next/link";
 import { FolderIcon } from "@heroicons/react/24/outline";
 import { FolderOpenIcon } from "@heroicons/react/24/solid";
+import { BACKEND_URL } from "../shared/backendURL";
 
 export default function Page() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -18,14 +19,14 @@ export default function Page() {
   useEffect(() => {
     if (username && username != "") {
       try {
-        fetch(`http://127.0.0.1:5000/is_logged_in/${username}`)
+        fetch(`${BACKEND_URL}/is_logged_in/${username}`)
           .then((response) => response.text())
           .then((data) => {
             if (data === "True") {
               setLoggedIn(true);
 
               try {
-                fetch(`http://127.0.0.1:5000/get_email/${username}`)
+                fetch(`${BACKEND_URL}/get_email/${username}`)
                   .then((response) => response.text())
                   .then((data) => {
                     if (data !== "False") {

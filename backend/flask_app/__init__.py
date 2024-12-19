@@ -31,7 +31,7 @@ def custom_404(e):
 
 def create_app(test_config=None):
     app = Flask(__name__)
-    CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
+    CORS(app, resources={r"/*": {"origins": ["http://localhost:3000", "https://lyrics-final-project-frontend.vercel.app"]}})
 
     app.config.from_pyfile("config.py", silent=False)
     if test_config is not None:

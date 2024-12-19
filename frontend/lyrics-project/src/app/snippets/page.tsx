@@ -5,6 +5,7 @@ import Link from "next/link";
 import { TrashIcon, PlusIcon } from "@heroicons/react/24/outline";
 import { useState, useEffect } from "react";
 import { FormEvent } from "react";
+import { BACKEND_URL } from "../shared/backendURL";
 
 export default function Page() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -27,7 +28,7 @@ export default function Page() {
   useEffect(() => {
     if (username && username != "") {
       try {
-        fetch(`http://127.0.0.1:5000/is_logged_in/${username}`)
+        fetch(`${BACKEND_URL}/is_logged_in/${username}`)
           .then((response) => response.text())
           .then((data) => {
             if (data === "True") {
@@ -50,13 +51,10 @@ export default function Page() {
       // prevent multiple runs
       console.log("hi");
       try {
-        const response = await fetch(
-          `http://127.0.0.1:5000/get-snips/${username}`,
-          {
-            method: "GET",
-            headers: { "Content-Type": "application/json" },
-          }
-        );
+        const response = await fetch(`${BACKEND_URL}/get-snips/${username}`, {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+        });
 
         if (response.ok) {
           const res = await response.json();
@@ -84,7 +82,7 @@ export default function Page() {
     console.log(content);
     // prevent multiple runs
     try {
-      const response = await fetch("http://127.0.0.1:5000/delete-snip", {
+      const response = await fetch(`${BACKEND_URL}/delete-snip`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ content }),
@@ -128,7 +126,7 @@ export default function Page() {
       .value;
 
     try {
-      const response = await fetch("http://127.0.0.1:5000/save-snip", {
+      const response = await fetch(`${BACKEND_URL}/save-snip`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ snip: content, artist, song, username }),

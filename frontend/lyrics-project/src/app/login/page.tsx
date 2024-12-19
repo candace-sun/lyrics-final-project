@@ -9,6 +9,7 @@
 import { FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { BACKEND_URL } from "../shared/backendURL";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -22,7 +23,7 @@ export default function LoginPage() {
     const myContainer = document.getElementById("err") as HTMLInputElement;
 
     try {
-      const response = await fetch("http://127.0.0.1:5000/login", {
+      const response = await fetch(`${BACKEND_URL}/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, password }),

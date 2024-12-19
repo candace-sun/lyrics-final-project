@@ -3,6 +3,7 @@
 import { FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { BACKEND_URL } from "../shared/backendURL";
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -41,7 +42,7 @@ export default function RegisterPage() {
     // send request if input is validated
     if (err == "") {
       try {
-        const response = await fetch("http://127.0.0.1:5000/register", {
+        const response = await fetch(`${BACKEND_URL}/register`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ email, username, password: password1 }),

@@ -2,6 +2,7 @@
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { BACKEND_URL } from "../shared/backendURL";
 
 export default function LoginButtons() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -14,7 +15,7 @@ export default function LoginButtons() {
   useEffect(() => {
     if (username && username != "") {
       try {
-        fetch(`http://127.0.0.1:5000/is_logged_in/${username}`)
+        fetch(`${BACKEND_URL}/is_logged_in/${username}`)
           .then((response) => response.text())
           .then((data) => (data === "True" ? setLoggedIn(true) : {}));
       } catch (error) {

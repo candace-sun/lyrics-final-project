@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { BACKEND_URL } from "../shared/backendURL";
 
 export default async function SearchResultsLayout({
   query,
@@ -14,7 +15,7 @@ export default async function SearchResultsLayout({
 
   if (query) {
     try {
-      const data = await fetch(`http://127.0.0.1:5000/lyrics/search/${query}`);
+      const data = await fetch(`${BACKEND_URL}/lyrics/search/${query}`);
       const res = await data.json();
       if (Object.keys(res).length) {
         lst = res["results"]["trackmatches"]["track"];
